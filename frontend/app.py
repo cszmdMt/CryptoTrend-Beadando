@@ -46,6 +46,20 @@ with st.sidebar:
             except Exception as e:
                 st.error(f"Nem sikerült elérni a szervert! {e}")
 
+    st.divider()
+    st.header("🔄 Árak Frissítése")
+    if st.button("Élő Árfolyamok Letöltése (Net)"):
+        with st.spinner("Kapcsolódás a CoinGecko-hoz..."):
+            try:
+                res = requests.post(f"{API_URL}/refresh-prices/")
+                if res.status_code == 200:
+                    st.success(res.json().get("message"))
+                    st.rerun()  # Újratölti az oldalt a friss adatokkal
+                else:
+                    st.error("Hiba a frissítésnél!")
+            except Exception as e:
+                st.error(f"Hálózati hiba: {e}")
+
 # --- 2. FŐRÉSZ: ADATOK MEGJELENÍTÉSE ---
 
 # Lekérjük az összes coint a Backendtől (GET kérés)
@@ -92,6 +106,31 @@ if coins:
         color="symbol"  # Minden oszlop más színű legyen
     )
     st.plotly_chart(fig, use_container_width=True)
+
+    st.divider()
+    st.subheader("🧠 Intelligens Elemzés (Funkcionális Programozás)")
+
+    try:
+        # Lekérjük az elemzést a backendtől
+        stats_res = requests.get(f"{API_URL}/analytics/")
+        if stats_res.status_code == 200:
+            stats = stats_res.json()
+
+            # Kirakjuk 4 oszlopba a számokat
+            s1, s2, s3, s4 = st.columns(4)
+            s1.metric("Coinok száma", stats.get("total_coins"))
+            s2.metric("Átlagár ($)", stats.get("average_price"))
+            s3.metric("100$ felettiek", stats.get("expensive_coins_count"))
+            s4.metric("Legdrágább", stats.get("most_expensive"))
+
+            # Egy kis extra infó
+            with st.expander("Kik a nagyágyúk? (>100$)"):
+                st.write(", ".join(stats.get("expensive_coins_list", [])))
+
+        else:
+            st.info("Nincs elég adat az elemzéshez.")
+    except Exception as e:
+        st.error(f"Hiba az elemzés betöltésekor: {e}")
 
     # --- Részletes Táblázat ---
     st.subheader("📋 Részletes Lista")

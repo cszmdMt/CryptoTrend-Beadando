@@ -4,6 +4,8 @@ from typing import List
 
 from app import crud, models, schemas
 from app.database import SessionLocal, engine
+from app.services import price_fetcher
+from app.services import analysis
 
 # --- ADATBÁZIS INDÍTÁSA ---
 # Ez a sor a VARÁZSLAT! Létrehozza a táblákat (crypto_coins, transactions)
@@ -51,3 +53,21 @@ def create_transaction_for_coin(
     # de a crud-nak szüksége van rá. Itt adjuk hozzá.
     transaction.coin_id = coin_id
     return crud.create_coin_transaction(db=db, transaction=transaction)
+
+
+# --- AUTOMATIZÁCIÓS VÉGPONT ---
+@app.post("/refresh-prices/")
+async def refresh_prices(db: Session = Depends(get_db)):
+    """
+    Ez a végpont hívja meg a külső API-t és frissíti az árakat.
+    """
+    return await price_fetcher.update_prices(db)
+
+# --- ANALITIKA VÉGPONT (FP Demo) ---
+@app.get("/analytics/")
+def get_analytics(db: Session = Depends(get_db)):
+    """Statisztikai elemzés funkcionális programozással"""
+    coins = crud.get_coins(db)
+    # Átalakítjuk a DB modelleket Pydantic sémává, hogy az elemző megegye
+    pydantic_coins = [schemas.Coin.from_orm(c) for c in coins]
+    return analysis.analyze_portfolio(pydantic_coins)
