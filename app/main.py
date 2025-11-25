@@ -7,16 +7,11 @@ from app.database import SessionLocal, engine
 from app.services import price_fetcher
 from app.services import analysis
 
-# --- ADATBÁZIS INDÍTÁSA ---
-# Ez a sor a VARÁZSLAT! Létrehozza a táblákat (crypto_coins, transactions)
-# az adatbázisban, ha még nem léteznek.
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="CryptoTrend API", version="1.0.0")
 
-# --- Dependency (Függőség) ---
-# Ez biztosítja, hogy minden kéréshez kapjunk egy adatbázis kapcsolatot,
-# amit a kérés végén be is zárunk. Nagyon fontos az erőforrás-kezelés miatt!
+
 def get_db():
     db = SessionLocal()
     try:
@@ -24,7 +19,6 @@ def get_db():
     finally:
         db.close()
 
-# --- VÉGPONTOK (ENDPOINTS) ---
 
 @app.get("/")
 def read_root():
@@ -32,7 +26,6 @@ def read_root():
 
 @app.post("/coins/", response_model=schemas.Coin)
 def create_coin(coin: schemas.CoinCreate, db: Session = Depends(get_db)):
-    """Új kriptovaluta felvétele a rendszerbe"""
     db_coin = crud.get_coin_by_symbol(db, symbol=coin.symbol)
     if db_coin:
         raise HTTPException(status_code=400, detail="Coin already registered")
@@ -40,7 +33,6 @@ def create_coin(coin: schemas.CoinCreate, db: Session = Depends(get_db)):
 
 @app.get("/coins/", response_model=List[schemas.Coin])
 def read_coins(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    """Az összes elérhető coin listázása"""
     coins = crud.get_coins(db, skip=skip, limit=limit)
     return coins
 
@@ -48,26 +40,16 @@ def read_coins(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 def create_transaction_for_coin(
     coin_id: int, transaction: schemas.TransactionCreate, db: Session = Depends(get_db)
 ):
-    """Vétel/Eladás rögzítése egy adott coinhoz"""
-    # Kis trükk: a schemas.TransactionCreate-ben nincs coin_id (mert az URL-ből jön),
-    # de a crud-nak szüksége van rá. Itt adjuk hozzá.
     transaction.coin_id = coin_id
     return crud.create_coin_transaction(db=db, transaction=transaction)
 
 
-# --- AUTOMATIZÁCIÓS VÉGPONT ---
 @app.post("/refresh-prices/")
 async def refresh_prices(db: Session = Depends(get_db)):
-    """
-    Ez a végpont hívja meg a külső API-t és frissíti az árakat.
-    """
     return await price_fetcher.update_prices(db)
 
-# --- ANALITIKA VÉGPONT (FP Demo) ---
 @app.get("/analytics/")
 def get_analytics(db: Session = Depends(get_db)):
-    """Statisztikai elemzés funkcionális programozással"""
     coins = crud.get_coins(db)
-    # Átalakítjuk a DB modelleket Pydantic sémává, hogy az elemző megegye
     pydantic_coins = [schemas.Coin.from_orm(c) for c in coins]
     return analysis.analyze_portfolio(pydantic_coins)
