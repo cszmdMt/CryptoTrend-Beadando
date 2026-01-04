@@ -4,21 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ae7c4e69-d6fd-4c1f-8ce8-67104d4aa13d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/run.py" afterDir="false" />
+    <list default="true" id="ae7c4e69-d6fd-4c1f-8ce8-67104d4aa13d" name="Changes" comment="fix: Kritikus deploy hibák javítása és kódminőség fejlesztése&#10;&#10;Kritikus működési hibák javítása (Deploy előkészítés):&#10;- requirements.txt: `psycopg2-binary` hozzáadása a PostgreSQL támogatáshoz.&#10;- app/database.py: Hardcoded SQLite lecserélése `DATABASE_URL` környezeti változóra és feltételes connect_args használat.&#10;- frontend/app.py: Hardcoded localhost API URL cseréje `BACKEND_URL` környezeti változóra a felhő alapú működéshez.&#10;&#10;Kódminőség és dokumentáció (Refactor):&#10;- Logging bevezetése a `print()` függvények helyett (`price_fetcher.py`, `main.py`).&#10;- Hiányzó docstringek pótlása a szabványos dokumentáció érdekében (`models.py`, `schemas.py`, `crud.py`, `analysis.py`).">
+      <change afterPath="$PROJECT_DIR$/pytest.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/crud.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/crud.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/schemas.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/schemas.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/analysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/analysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/services/price_fetcher.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/services/price_fetcher.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +62,19 @@
       <option name="presentableId" value="Default" />
       <updated>1763851666771</updated>
     </task>
+    <task id="LOCAL-00001" summary="fix: Kritikus deploy hibák javítása és kódminőség fejlesztése&#10;&#10;Kritikus működési hibák javítása (Deploy előkészítés):&#10;- requirements.txt: `psycopg2-binary` hozzáadása a PostgreSQL támogatáshoz.&#10;- app/database.py: Hardcoded SQLite lecserélése `DATABASE_URL` környezeti változóra és feltételes connect_args használat.&#10;- frontend/app.py: Hardcoded localhost API URL cseréje `BACKEND_URL` környezeti változóra a felhő alapú működéshez.&#10;&#10;Kódminőség és dokumentáció (Refactor):&#10;- Logging bevezetése a `print()` függvények helyett (`price_fetcher.py`, `main.py`).&#10;- Hiányzó docstringek pótlása a szabványos dokumentáció érdekében (`models.py`, `schemas.py`, `crud.py`, `analysis.py`).">
+      <option name="closed" value="true" />
+      <created>1767544374514</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1767544374514</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fix: Kritikus deploy hibák javítása és kódminőség fejlesztése&#10;&#10;Kritikus működési hibák javítása (Deploy előkészítés):&#10;- requirements.txt: `psycopg2-binary` hozzáadása a PostgreSQL támogatáshoz.&#10;- app/database.py: Hardcoded SQLite lecserélése `DATABASE_URL` környezeti változóra és feltételes connect_args használat.&#10;- frontend/app.py: Hardcoded localhost API URL cseréje `BACKEND_URL` környezeti változóra a felhő alapú működéshez.&#10;&#10;Kódminőség és dokumentáció (Refactor):&#10;- Logging bevezetése a `print()` függvények helyett (`price_fetcher.py`, `main.py`).&#10;- Hiányzó docstringek pótlása a szabványos dokumentáció érdekében (`models.py`, `schemas.py`, `crud.py`, `analysis.py`)." />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: Kritikus deploy hibák javítása és kódminőség fejlesztése&#10;&#10;Kritikus működési hibák javítása (Deploy előkészítés):&#10;- requirements.txt: `psycopg2-binary` hozzáadása a PostgreSQL támogatáshoz.&#10;- app/database.py: Hardcoded SQLite lecserélése `DATABASE_URL` környezeti változóra és feltételes connect_args használat.&#10;- frontend/app.py: Hardcoded localhost API URL cseréje `BACKEND_URL` környezeti változóra a felhő alapú működéshez.&#10;&#10;Kódminőség és dokumentáció (Refactor):&#10;- Logging bevezetése a `print()` függvények helyett (`price_fetcher.py`, `main.py`).&#10;- Hiányzó docstringek pótlása a szabványos dokumentáció érdekében (`models.py`, `schemas.py`, `crud.py`, `analysis.py`)." />
   </component>
 </project>
