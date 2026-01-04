@@ -5,6 +5,10 @@ from app.database import Base
 
 
 class BaseAsset(Base):
+    """
+        Absztrakt ősosztály, amely a közös tulajdonságokat tartalmazza (pl. id, név, létrehozás ideje).
+        Ebből származik le minden konkrét pénzügyi eszköz modellje.
+    """
     __abstract__ = True
 
     id = Column(Integer, primary_key=True, index=True)
@@ -13,6 +17,10 @@ class BaseAsset(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 class CryptoCoin(BaseAsset):
+    """
+        Kriptovaluták adatait tároló adatbázis modell.
+        Örökli a BaseAsset mezőit, és kiegészíti árfolyam adatokkal.
+    """
     __tablename__ = "crypto_coins"
 
     current_price = Column(Float)
@@ -21,6 +29,10 @@ class CryptoCoin(BaseAsset):
     transactions = relationship("Transaction", back_populates="coin")
 
 class Transaction(Base):
+    """
+        Egy adott coinhoz tartozó tranzakció (vétel/eladás) modellje.
+        Tárolja a mennyiséget, árat és a tranzakció idejét.
+    """
     __tablename__ = "transactions"
 
     id = Column(Integer, primary_key=True, index=True)

@@ -2,8 +2,16 @@ import streamlit as st
 import requests
 import pandas as pd
 import plotly.express as px
+import os
+from dotenv import load_dotenv
 
-API_URL = "http://127.0.0.1:8000"
+# 1. Betöltjük a környezeti változókat (ha van .env fájl)
+load_dotenv()
+
+# 2. Dinamikusan kérjük le a Backend URL-t
+# Ha van beállítva "BACKEND_URL" (pl. Streamlit Cloud-on), azt használja.
+# Ha nincs (pl. otthon fejlesztéskor), akkor marad a localhost.
+API_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
 st.set_page_config(
     page_title="CryptoTrend Pro",
     page_icon="💎",

@@ -5,8 +5,15 @@ from app.schemas import Coin
 
 def analyze_portfolio(coins: List[Coin]):
     """
-    Ez a modul tisztán FUNKCIONÁLIS programozási eszközöket használ.
-    Nincsenek ciklusok (for/while), csak map, filter, reduce!
+        Portfólió elemzése funkcionális programozási eszközökkel.
+
+        A függvény tisztán funkcionális megközelítést alkalmaz:
+        - map: Adattranszformációhoz
+        - filter: Szűréshez
+        - reduce: Aggregációhoz (összegzés)
+
+        :param coins: A coin objektumok listája
+        :return: Szótár (dict) a számított statisztikákkal
     """
 
     if not coins:
