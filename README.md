@@ -28,13 +28,13 @@ Hozd létre a virtuális környezetet és telepítsd a függőségeket:
 
 ```bash
 # Virtuális környezet létrehozása
-python -m venv venv
+python -m venv .venv
 
 # Aktiválás (Windows)
-venv\Scripts\activate
+.venv\Scripts\activate
 
 # Aktiválás (Mac/Linux)
-source venv/bin/activate
+source .venv/bin/activate
 
 # Csomagok telepítése
 pip install -r requirements.txt
